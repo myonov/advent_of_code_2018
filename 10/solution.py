@@ -19,17 +19,17 @@ def read():
     return r
 
 
-def get_point_in_time(p, t):
+def point_in_time(p, t):
     return p.x + t * p.dx, p.y + t * p.dy
 
 
 def bounding_box(moving_points, t):
-    x, y = get_point_in_time(moving_points[0], t)
+    x, y = point_in_time(moving_points[0], t)
     left, bottom = x, y
     right, top = x, y
 
     for p in moving_points[1:]:
-        x, y = get_point_in_time(p, t)
+        x, y = point_in_time(p, t)
         if left > x:
             left = x
         if right < x:
@@ -52,7 +52,7 @@ def box_bigger_or_eq(b1, b2):
 
 def output(points, t):
     print(t)
-    s = {get_point_in_time(p, t) for p in points}
+    s = {point_in_time(p, t) for p in points}
     box = bounding_box(points, t)
     with open('output.txt', 'w') as fout:
         for y in range(box[0], box[2] + 1):
